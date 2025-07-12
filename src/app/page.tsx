@@ -102,41 +102,45 @@ export default function Home() {
     <div className="min-h-screen w-full bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] flex flex-col items-center px-4">
       {/* Onboarding Dialog */}
       <Dialog open={showOnboarding}>
-        <DialogContent className="max-w-sm mx-auto rounded-2xl shadow-xl">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold">Welcome to DM Closer</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleOnboarding} className="flex flex-col gap-4 mt-2">
-            <Label htmlFor="email" className="text-base">Enter your email to get started:</Label>
-            <Input
-              id="email"
-              type="email"
-              required
-              value={userEmail}
-              onChange={e => setUserEmail(e.target.value)}
-              placeholder="you@email.com"
-              className="h-12 text-lg"
-            />
-            <Button type="submit" disabled={emailSubmitted} className="h-12 text-lg font-semibold">
-              {emailSubmitted ? "Thanks! Redirecting..." : "Continue"}
-            </Button>
-          </form>
+        <DialogContent>
+          <div className="max-w-sm mx-auto rounded-2xl shadow-xl">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold">Welcome to DM Closer</DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleOnboarding} className="flex flex-col gap-4 mt-2">
+              <Label htmlFor="email" className="text-base">Enter your email to get started:</Label>
+              <Input
+                id="email"
+                type="email"
+                required
+                value={userEmail}
+                onChange={e => setUserEmail(e.target.value)}
+                placeholder="you@email.com"
+                className="h-12 text-lg"
+              />
+              <Button type="submit" disabled={emailSubmitted} className="h-12 text-lg font-semibold">
+                {emailSubmitted ? "Thanks! Redirecting..." : "Continue"}
+              </Button>
+            </form>
+          </div>
         </DialogContent>
       </Dialog>
 
       {/* Paywall Dialog */}
       <Dialog open={showPaywall} onOpenChange={setShowPaywall}>
-        <DialogContent className="max-w-sm mx-auto rounded-2xl shadow-xl">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold">Unlock Unlimited AI Replies</DialogTitle>
-          </DialogHeader>
-          <p className="mb-4 text-gray-300">You’ve used your free reply. Upgrade to Pro for unlimited access!</p>
-          <Button className="w-full mb-2 h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors" onClick={handlePayment}>
-            Pay $9.99/month (Stripe)
-          </Button>
-          <Button variant="outline" className="w-full h-12 text-lg font-semibold" onClick={() => setShowPaywall(false)}>
-            Cancel
-          </Button>
+        <DialogContent>
+          <div className="max-w-sm mx-auto rounded-2xl shadow-xl">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold">Unlock Unlimited AI Replies</DialogTitle>
+            </DialogHeader>
+            <p className="mb-4 text-gray-300">You’ve used your free reply. Upgrade to Pro for unlimited access!</p>
+            <Button className="w-full mb-2 h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors" onClick={handlePayment}>
+              Pay $9.99/month (Stripe)
+            </Button>
+            <Button variant="outline" className="w-full h-12 text-lg font-semibold" onClick={() => setShowPaywall(false)}>
+              Cancel
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
 
@@ -200,10 +204,10 @@ export default function Home() {
             </Button>
           </form>
           {output && (
-            <Alert className="mt-8 bg-white/10 border-0 text-white rounded-xl shadow-md">
+            <div className="mt-8 bg-white/10 border-0 text-white rounded-xl shadow-md p-4">
               <AlertTitle className="font-bold">AI Reply:</AlertTitle>
               <AlertDescription className="whitespace-pre-line text-lg">{output}</AlertDescription>
-            </Alert>
+            </div>
           )}
         </CardContent>
       </Card>
@@ -214,9 +218,11 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((t, i) => (
             <Card key={i} className="bg-white/5 border-0 rounded-2xl shadow-lg">
-              <CardContent className="p-6 flex flex-col items-start gap-4">
-                <p className="text-white text-lg font-medium">"{t.text}"</p>
-                <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-base font-semibold shadow">{t.name}</Badge>
+              <CardContent>
+                <div className="p-6 flex flex-col items-start gap-4">
+                  <p className="text-white text-lg font-medium">"{t.text}"</p>
+                  <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-base font-semibold shadow">{t.name}</Badge>
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -227,13 +233,15 @@ export default function Home() {
       <section className="w-full max-w-2xl mb-16">
         <h2 className="text-3xl font-bold text-white mb-8 text-center">Pricing</h2>
         <Card className="bg-white/5 border-0 rounded-2xl shadow-xl">
-          <CardContent className="p-10 flex flex-col items-center gap-4">
-            <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">$9.99</div>
-            <div className="text-white text-lg mb-2">per month, unlimited AI replies</div>
-            <Button onClick={() => setShowPaywall(true)} className="h-12 px-8 text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors rounded-xl shadow-md">
-              Upgrade Now
-            </Button>
-            <div className="text-gray-300 text-xs mt-2">7-day money-back guarantee</div>
+          <CardContent>
+            <div className="p-10 flex flex-col items-center gap-4">
+              <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">$9.99</div>
+              <div className="text-white text-lg mb-2">per month, unlimited AI replies</div>
+              <Button onClick={() => setShowPaywall(true)} className="h-12 px-8 text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors rounded-xl shadow-md">
+                Upgrade Now
+              </Button>
+              <div className="text-gray-300 text-xs mt-2">7-day money-back guarantee</div>
+            </div>
           </CardContent>
         </Card>
       </section>
@@ -244,9 +252,11 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {faqs.map((f, i) => (
             <Card key={i} className="bg-white/5 border-0 rounded-2xl shadow-md">
-              <CardContent className="p-6 flex flex-col gap-2">
-                <div className="font-semibold text-white text-lg">{f.q}</div>
-                <div className="text-gray-300 text-base">{f.a}</div>
+              <CardContent>
+                <div className="p-6 flex flex-col gap-2">
+                  <div className="font-semibold text-white text-lg">{f.q}</div>
+                  <div className="text-gray-300 text-base">{f.a}</div>
+                </div>
               </CardContent>
             </Card>
           ))}
