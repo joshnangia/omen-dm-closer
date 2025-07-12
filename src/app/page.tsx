@@ -135,7 +135,7 @@ export default function Home() {
           <Button className="w-full mb-2" onClick={handlePayment}>
             Pay $9.99/month (Stripe)
           </Button>
-          <Button variant="outline" className="w-full" onClick={() => setShowPaywall(false)}>
+          <Button className="w-full bg-transparent border border-white text-white hover:bg-white/10" onClick={() => setShowPaywall(false)}>
             Cancel
           </Button>
         </DialogContent>
@@ -209,7 +209,7 @@ export default function Home() {
             <Card key={i} className="flex-1 bg-white/10 border-white/20">
               <CardContent className="p-4">
                 <p className="text-white mb-2">"{t.text}"</p>
-                <Badge variant="secondary">{t.name}</Badge>
+                <Badge>{t.name}</Badge>
               </CardContent>
             </Card>
           ))}
