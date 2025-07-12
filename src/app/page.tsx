@@ -105,7 +105,9 @@ export default function Home() {
         <DialogContent>
           <div className="max-w-sm mx-auto rounded-2xl shadow-xl">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold">Welcome to DM Closer</DialogTitle>
+              <DialogTitle>
+                <span className="text-2xl font-bold">Welcome to DM Closer</span>
+              </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleOnboarding} className="flex flex-col gap-4 mt-2">
               <Label htmlFor="email" className="text-base">Enter your email to get started:</Label>
@@ -131,7 +133,9 @@ export default function Home() {
         <DialogContent>
           <div className="max-w-sm mx-auto rounded-2xl shadow-xl">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold">Unlock Unlimited AI Replies</DialogTitle>
+              <DialogTitle>
+                <span className="text-2xl font-bold">Unlock Unlimited AI Replies</span>
+              </DialogTitle>
             </DialogHeader>
             <p className="mb-4 text-gray-300">You’ve used your free reply. Upgrade to Pro for unlimited access!</p>
             <Button className="w-full mb-2 h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors" onClick={handlePayment}>
@@ -165,7 +169,9 @@ export default function Home() {
       {/* Demo Section */}
       <Card className="w-full max-w-2xl mb-16 bg-white/5 backdrop-blur-2xl border-0 shadow-2xl rounded-3xl">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-white">Try the AI DM Closer</CardTitle>
+          <CardTitle>
+            <span className="text-2xl font-bold text-white">Try the AI DM Closer</span>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
