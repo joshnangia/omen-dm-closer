@@ -141,7 +141,10 @@ export default function Home() {
             <Button className="w-full mb-2 h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors" onClick={handlePayment}>
               Pay $9.99/month (Stripe)
             </Button>
-            <Button variant="outline" className="w-full h-12 text-lg font-semibold" onClick={() => setShowPaywall(false)}>
+            <Button
+              className="w-full h-12 text-lg font-semibold border border-white/30 bg-transparent text-white hover:bg-white/10"
+              onClick={() => setShowPaywall(false)}
+            >
               Cancel
             </Button>
           </div>
@@ -160,7 +163,7 @@ export default function Home() {
           <Button size="lg" className="h-14 px-8 text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors shadow-lg">
             Try Free
           </Button>
-          <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/30 text-white hover:bg-white/10 transition-colors">
+          <Button size="lg" className="h-14 px-8 text-lg font-bold border border-white/30 bg-transparent text-white hover:bg-white/10 transition-colors">
             See Pricing
           </Button>
         </div>
