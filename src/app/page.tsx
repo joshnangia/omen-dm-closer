@@ -2,10 +2,25 @@
 
 import React, { useState } from 'react';
 
+const tones = [
+  { label: "Friendly", value: "friendly" },
+  { label: "Urgent", value: "urgent" },
+  { label: "Luxury", value: "luxury" },
+  { label: "Casual", value: "casual" },
+];
+
+const goals = [
+  { label: "Book a Call", value: "book_call" },
+  { label: "Close Sale", value: "close_sale" },
+  { label: "Handle Objection", value: "handle_objection" },
+];
+
 export default function Home() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [tone, setTone] = useState(tones[0].value);
+  const [goal, setGoal] = useState(goals[0].value);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,7 +30,7 @@ export default function Home() {
       const res = await fetch('/api/closer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input }),
+        body: JSON.stringify({ input, tone, goal }),
       });
       const data = await res.json();
       setOutput(data.output);
@@ -27,8 +42,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black px-4">
-      <div className="w-full max-w-xl bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 flex flex-col items-center border border-white/20">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-white text-center mb-2">
+      {/* Glassy Card */}
+      <div className="w-full max-w-xl bg-white/10 backdrop-blur-2xl rounded-2xl shadow-2xl p-8 flex flex-col items-center border border-white/20">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-white text-center mb-2 drop-shadow-lg">
           Close more deals in your DMs — <span className="text-blue-400">instantly.</span>
         </h1>
         <p className="text-gray-200 text-center mb-6">
@@ -43,6 +59,26 @@ export default function Home() {
             required
             rows={6}
           />
+          <div className="flex gap-2">
+            <select
+              className="flex-1 p-2 rounded-lg bg-black/40 text-white border border-gray-700"
+              value={tone}
+              onChange={e => setTone(e.target.value)}
+            >
+              {tones.map(t => (
+                <option key={t.value} value={t.value}>{t.label} Tone</option>
+              ))}
+            </select>
+            <select
+              className="flex-1 p-2 rounded-lg bg-black/40 text-white border border-gray-700"
+              value={goal}
+              onChange={e => setGoal(e.target.value)}
+            >
+              {goals.map(g => (
+                <option key={g.value} value={g.value}>{g.label}</option>
+              ))}
+            </select>
+          </div>
           <button
             className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 to-pink-500 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform duration-200"
             type="submit"
