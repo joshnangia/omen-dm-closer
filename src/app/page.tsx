@@ -137,12 +137,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen w-full bg-white flex flex-col items-center px-2 sm:px-4 relative overflow-x-hidden">
-      {/* Floating SVG accents */}
-      <svg className="absolute top-[-60px] left-[-60px] w-60 h-60 opacity-10 z-0" viewBox="0 0 200 200"><circle cx="100" cy="100" r="100" fill="#3b82f6" /></svg>
-      <svg className="absolute bottom-[-80px] right-[-80px] w-80 h-80 opacity-10 z-0" viewBox="0 0 320 320"><rect x="0" y="0" width="320" height="320" rx="160" fill="#6366f1" /></svg>
-      <svg className="absolute top-1/2 left-[-40px] w-32 h-32 opacity-5 z-0" viewBox="0 0 128 128"><ellipse cx="64" cy="64" rx="64" ry="32" fill="#0ea5e9" /></svg>
-
+    <div className="min-h-screen w-full bg-[#111] flex flex-col items-center px-2 sm:px-4 relative overflow-x-hidden font-sans">
       {/* Sticky CTA */}
       {showSticky && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90vw] max-w-md">
@@ -166,7 +161,7 @@ export default function Home() {
                 <span className="text-2xl font-bold text-black">Unlock Personal AI & Unlimited Replies</span>
               </DialogTitle>
             </DialogHeader>
-            <p className="mb-4 text-gray-700">Upgrade to personalize your AI with your Instagram and get unlimited replies!</p>
+            <p className="mb-4 text-gray-700">Upgrade to personalize your AI and get unlimited replies!</p>
             <Button className="w-full mb-2 h-12 text-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors" onClick={handlePayment}>
               Pay $9.99/month (Stripe)
             </Button>
@@ -181,94 +176,96 @@ export default function Home() {
       </Dialog>
 
       {/* Hero Section */}
-      <section className="w-full flex flex-col items-center pt-16 pb-8 z-10">
-        <div className="w-full max-w-md mx-auto bg-white border border-gray-200 rounded-3xl shadow-2xl p-7 flex flex-col items-center animate-fade-in">
-          <div className="mb-4 flex items-center gap-2">
+      <section className="w-full flex flex-col items-center pt-20 pb-12 z-10">
+        <div className="w-full max-w-xl mx-auto bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center gap-6">
+          <div className="flex items-center gap-2">
             <span className="text-2xl font-extrabold text-black tracking-tight">DM Closer</span>
             <span className="w-3 h-3 rounded-full bg-blue-600"></span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-black text-center mb-3 tracking-tight leading-tight">
+          <h1 className="text-5xl font-extrabold text-black text-center tracking-tight leading-tight">
             Close more deals in your DMs
-            <br />
-            <span className="text-gray-500">instantly.</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-700 text-center mb-6 max-w-xs font-medium">
+          <p className="text-lg text-gray-700 text-center max-w-md font-medium">
             Paste your convo and let our AI craft the perfect closing message. Designed for creators, closers, and anyone who wants to win more deals.
           </p>
-          <Button className="h-12 px-8 text-lg font-bold bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-lg" onClick={() => window.scrollTo({ top: 400, behavior: 'smooth' })}>
+          <Button className="h-14 px-10 text-lg font-bold bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-lg rounded-full" onClick={() => window.scrollTo({ top: 500, behavior: 'smooth' })}>
             Try Free
           </Button>
         </div>
       </section>
 
       {/* Demo Section */}
-      <Card className="w-full max-w-md mb-10 bg-white border border-gray-200 shadow-2xl rounded-3xl animate-fade-in-up z-10">
-        <CardHeader>
-          <CardTitle>
-            <span className="text-2xl font-bold text-black">Try the AI DM Closer</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            <Textarea
-              className="bg-white text-black text-lg rounded-xl min-h-[100px] border border-gray-300"
-              placeholder="Paste your DM conversation here..."
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              required
-              rows={5}
-              disabled={freeTried}
-            />
-            <div>
-              <div className="mb-2 text-black font-semibold">Tone</div>
-              <PillGroup options={tones} value={tone} onChange={setTone} />
-            </div>
-            <div>
-              <div className="mb-2 text-black font-semibold">Goal</div>
-              <PillGroup options={goals} value={goal} onChange={setGoal} />
-            </div>
-            <Button type="submit" disabled={loading || freeTried} className="h-12 text-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors rounded-xl shadow-md">
-              {freeTried ? "Free try used" : loading ? (
-                <span className="flex items-center gap-2">
-                  <span className="animate-spin rounded-full border-2 border-blue-600 border-t-transparent w-5 h-5"></span>
-                  Generating...
-                </span>
-              ) : "Generate Response"}
-            </Button>
-          </form>
-          {output && (
-            <div className="mt-7 bg-gray-100 border-0 text-black rounded-xl shadow-md p-4 animate-fade-in">
-              <AlertTitle>
-                <span className="font-bold">AI Reply:</span>
-              </AlertTitle>
-              <AlertDescription>
-                <span className="whitespace-pre-line text-lg">{output}</span>
-              </AlertDescription>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      <section className="w-full flex flex-col items-center z-10">
+        <Card className="w-full max-w-xl mb-16 bg-white border border-gray-200 shadow-2xl rounded-3xl">
+          <CardHeader>
+            <CardTitle>
+              <span className="text-2xl font-bold text-black">Try the AI DM Closer</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              <Textarea
+                className="bg-white text-black text-lg rounded-xl min-h-[100px] border border-gray-300"
+                placeholder="Paste your DM conversation here..."
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                required
+                rows={5}
+                disabled={freeTried}
+              />
+              <div>
+                <div className="mb-2 text-black font-semibold">Tone</div>
+                <PillGroup options={tones} value={tone} onChange={setTone} />
+              </div>
+              <div>
+                <div className="mb-2 text-black font-semibold">Goal</div>
+                <PillGroup options={goals} value={goal} onChange={setGoal} />
+              </div>
+              <Button type="submit" disabled={loading || freeTried} className="h-12 text-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors rounded-xl shadow-md">
+                {freeTried ? "Free try used" : loading ? (
+                  <span className="flex items-center gap-2">
+                    <span className="animate-spin rounded-full border-2 border-blue-600 border-t-transparent w-5 h-5"></span>
+                    Generating...
+                  </span>
+                ) : "Generate Response"}
+              </Button>
+            </form>
+            {output && (
+              <div className="mt-7 bg-gray-100 border-0 text-black rounded-xl shadow-md p-4 animate-fade-in">
+                <AlertTitle>
+                  <span className="font-bold">AI Reply:</span>
+                </AlertTitle>
+                <AlertDescription>
+                  <span className="whitespace-pre-line text-lg">{output}</span>
+                </AlertDescription>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </section>
 
       {/* Why DM Closer Section */}
-      <section className="w-full max-w-md mb-10 animate-fade-in-up z-10">
-        <h2 className="text-2xl font-bold text-black mb-6 text-center">Why DM Closer?</h2>
-        <ul className="flex flex-col gap-4 mb-6">
-          {benefits.map((b, i) => (
-            <li key={i} className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-blue-600 inline-block"></span>
-              <span className="text-black text-base">{b}</span>
-            </li>
-          ))}
-        </ul>
-        <Button className="w-full h-12 text-lg font-bold bg-blue-600 text-white hover:bg-blue-700 transition-colors rounded-xl shadow-md">
-          Try Free Now
-        </Button>
+      <section className="w-full max-w-xl mb-16 animate-fade-in-up z-10">
+        <div className="bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center gap-6">
+          <h2 className="text-2xl font-bold text-black mb-2 text-center">Why DM Closer?</h2>
+          <ul className="flex flex-col gap-4 mb-6">
+            {benefits.map((b, i) => (
+              <li key={i} className="flex items-center gap-3">
+                <span className="w-3 h-3 rounded-full bg-blue-600 inline-block"></span>
+                <span className="text-black text-base">{b}</span>
+              </li>
+            ))}
+          </ul>
+          <Button className="w-full h-12 text-lg font-bold bg-blue-600 text-white hover:bg-blue-700 transition-colors rounded-xl shadow-md">
+            Try Free Now
+          </Button>
+        </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="w-full max-w-3xl mb-12 animate-fade-in-up flex flex-col md:flex-row items-center gap-8 z-10">
+      <section className="w-full max-w-3xl mb-16 animate-fade-in-up flex flex-col md:flex-row items-center gap-12 z-10">
         {/* Steps */}
-        <div className="flex-1 flex flex-col gap-6">
+        <div className="flex-1 flex flex-col gap-8">
           {[{
             title: "Paste your DM & pick your goal",
             desc: "Drop in your convo, choose your tone and goal.",
@@ -279,8 +276,8 @@ export default function Home() {
             title: "Upgrade for Personal AI",
             desc: "Unlock unlimited replies and personalize with your Instagram.",
           }].map((step, i) => (
-            <div key={i} className={`relative bg-white border border-gray-200 rounded-2xl shadow-lg p-6 flex items-start gap-4 transition-all duration-500 ${i === 0 ? 'animate-step-in' : ''}`}> 
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-extrabold text-white shadow-lg">{i+1}</div>
+            <div key={i} className={`relative bg-white border border-gray-200 rounded-2xl shadow-lg p-8 flex items-start gap-6 transition-all duration-500 ${i === 0 ? 'animate-step-in' : ''}`}> 
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-extrabold text-white shadow-lg">{i+1}</div>
               <div>
                 <div className="text-lg font-bold text-black mb-1">{step.title}</div>
                 <div className="text-gray-700 text-base">{step.desc}</div>
@@ -290,7 +287,7 @@ export default function Home() {
         </div>
         {/* Animated Visual (floating SVG) */}
         <div className="flex-1 flex justify-center items-center w-full md:w-auto mt-8 md:mt-0">
-          <svg className="w-64 h-64 animate-svg-bounce" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-72 h-72 animate-svg-bounce" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
             <ellipse cx="128" cy="128" rx="100" ry="60" fill="#3b82f6" />
             <ellipse cx="128" cy="128" rx="60" ry="100" fill="#6366f1" opacity="0.5" />
             <circle cx="128" cy="128" r="40" fill="#0ea5e9" fillOpacity="0.15" />
@@ -301,18 +298,18 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="w-full max-w-2xl mb-10 animate-fade-in-up z-10">
-        <h2 className="text-2xl font-bold text-black mb-6 text-center">What people are saying</h2>
-        <div className="flex gap-6 overflow-x-auto pb-2">
-          {testimonials.map((t, i) => (
-            <div key={i} className="min-w-[260px] max-w-xs bg-white border border-gray-200 rounded-2xl shadow-lg p-6 flex flex-col items-start gap-3 relative z-10">
-              <span className="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full opacity-20"></span>
-              <p className="text-black text-base font-medium z-10">"{t.text}"</p>
-              <Badge className="bg-blue-600 text-white px-4 py-2 text-base font-semibold shadow z-10">{t.name}</Badge>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-center mt-6">
+      <section className="w-full max-w-2xl mb-16 animate-fade-in-up z-10">
+        <div className="bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center gap-8">
+          <h2 className="text-2xl font-bold text-black mb-2 text-center">What people are saying</h2>
+          <div className="flex gap-8 overflow-x-auto pb-2 w-full">
+            {testimonials.map((t, i) => (
+              <div key={i} className="min-w-[260px] max-w-xs bg-white border border-gray-200 rounded-2xl shadow-lg p-6 flex flex-col items-start gap-3 relative z-10">
+                <span className="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full opacity-20"></span>
+                <p className="text-black text-base font-medium z-10">"{t.text}"</p>
+                <Badge className="bg-blue-600 text-white px-4 py-2 text-base font-semibold shadow z-10">{t.name}</Badge>
+              </div>
+            ))}
+          </div>
           <Button className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow hover:bg-blue-700 transition-colors">
             Join 1,000+ closers
           </Button>
@@ -320,36 +317,34 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section className="w-full max-w-md mb-10 animate-fade-in-up z-10">
-        <h2 className="text-2xl font-bold text-black mb-6 text-center">Pricing</h2>
-        <Card className="bg-white border border-gray-200 rounded-2xl shadow-xl">
-          <CardContent>
-            <div className="p-8 flex flex-col items-center gap-3">
-              <div className="text-4xl font-extrabold text-black mb-1">$9.99</div>
-              <div className="text-black text-base mb-1">per month, unlimited AI replies</div>
-              <Button onClick={() => setShowPaywall(true)} className="h-12 px-8 text-lg font-bold bg-blue-600 text-white hover:bg-blue-700 transition-colors rounded-xl shadow-md">
-                Upgrade Now
-              </Button>
-              <div className="text-gray-700 text-xs mt-1">7-day money-back guarantee</div>
-            </div>
-          </CardContent>
-        </Card>
+      <section className="w-full max-w-xl mb-16 animate-fade-in-up z-10">
+        <div className="bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center gap-6">
+          <h2 className="text-2xl font-bold text-black mb-2 text-center">Pricing</h2>
+          <div className="text-4xl font-extrabold text-black mb-1">$9.99</div>
+          <div className="text-black text-base mb-1">per month, unlimited AI replies</div>
+          <Button onClick={() => setShowPaywall(true)} className="h-12 px-8 text-lg font-bold bg-blue-600 text-white hover:bg-blue-700 transition-colors rounded-xl shadow-md">
+            Upgrade Now
+          </Button>
+          <div className="text-gray-700 text-xs mt-1">7-day money-back guarantee</div>
+        </div>
       </section>
 
       {/* FAQ */}
-      <section className="w-full max-w-md mb-20 animate-fade-in-up z-10">
-        <h2 className="text-2xl font-bold text-black mb-6 text-center">FAQ</h2>
-        <div className="flex flex-col gap-4">
-          {faqs.map((f, i) => (
-            <Card key={i} className="bg-white border border-gray-200 rounded-2xl shadow-md">
-              <CardContent>
-                <div className="p-5 flex flex-col gap-1">
-                  <div className="font-semibold text-black text-base">{f.q}</div>
-                  <div className="text-gray-700 text-sm">{f.a}</div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+      <section className="w-full max-w-xl mb-20 animate-fade-in-up z-10">
+        <div className="bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center gap-8">
+          <h2 className="text-2xl font-bold text-black mb-2 text-center">FAQ</h2>
+          <div className="flex flex-col gap-4 w-full">
+            {faqs.map((f, i) => (
+              <Card key={i} className="bg-white border border-gray-200 rounded-2xl shadow-md">
+                <CardContent>
+                  <div className="p-5 flex flex-col gap-1">
+                    <div className="font-semibold text-black text-base">{f.q}</div>
+                    <div className="text-gray-700 text-sm">{f.a}</div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
