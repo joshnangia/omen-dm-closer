@@ -214,8 +214,12 @@ export default function Home() {
           </form>
           {output && (
             <div className="mt-8 bg-white/10 border-0 text-white rounded-xl shadow-md p-4">
-              <AlertTitle className="font-bold">AI Reply:</AlertTitle>
-              <AlertDescription className="whitespace-pre-line text-lg">{output}</AlertDescription>
+              <AlertTitle>
+                <span className="font-bold">AI Reply:</span>
+              </AlertTitle>
+              <AlertDescription>
+                <span className="whitespace-pre-line text-lg">{output}</span>
+              </AlertDescription>
             </div>
           )}
         </CardContent>
