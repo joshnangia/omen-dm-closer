@@ -6,10 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Label } from "@/components/ui/label";
 
 const tones = [
   { label: "Friendly", value: "friendly" },
@@ -51,6 +49,12 @@ const faqs = [
 ];
 
 export default function Home() {
+  // Personal AI step
+  const [step, setStep] = useState(0);
+  const [insta, setInsta] = useState("");
+  const [desc, setDesc] = useState("");
+
+  // Demo/AI
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -78,7 +82,7 @@ export default function Home() {
       const res = await fetch("/api/closer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ input, tone, goal }),
+        body: JSON.stringify({ input, tone, goal, insta, desc }),
       });
       const data = await res.json();
       setOutput(data.output);
@@ -100,8 +104,41 @@ export default function Home() {
     setFreeTried(false); // Unlock unlimited
   };
 
+  // Pills for tone/goal
+  const PillGroup = ({ options, value, onChange }: { options: { label: string, value: string }[], value: string, onChange: (v: string) => void }) => (
+    <div className="flex gap-2 flex-wrap">
+      {options.map(opt => (
+        <button
+          key={opt.value}
+          type="button"
+          className={`px-4 py-2 rounded-full font-semibold transition-all text-sm shadow-md
+            ${value === opt.value
+              ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white scale-105"
+              : "bg-white/10 text-white hover:bg-white/20"}
+          `}
+          onClick={() => onChange(opt.value)}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#18181b] via-[#23272f] to-[#18181b] flex flex-col items-center px-2 sm:px-4">
+    <div className="min-h-screen w-full bg-gradient-to-br from-[#18181b] via-[#23272f] to-[#18181b] flex flex-col items-center px-2 sm:px-4 relative overflow-x-hidden">
+      {/* Animated background blobs */}
+      <div className="absolute top-0 left-0 w-full h-[400px] z-0 pointer-events-none">
+        <svg className="w-full h-full" viewBox="0 0 1440 400" fill="none">
+          <ellipse cx="720" cy="200" rx="700" ry="180" fill="url(#bg1)" fillOpacity="0.3" />
+          <defs>
+            <radialGradient id="bg1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#a5b4fc" />
+              <stop offset="100%" stopColor="#6366f1" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
       {/* Paywall Dialog */}
       <Dialog open={showPaywall} onOpenChange={setShowPaywall}>
         <DialogContent>
@@ -126,8 +163,12 @@ export default function Home() {
       </Dialog>
 
       {/* Hero Section */}
-      <section className="w-full flex flex-col items-center pt-12 pb-8">
-        <div className="w-full max-w-md mx-auto bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 flex flex-col items-center animate-fade-in">
+      <section className="w-full flex flex-col items-center pt-16 pb-8 z-10">
+        <div className="w-full max-w-md mx-auto bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl p-7 flex flex-col items-center animate-fade-in">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="text-2xl font-extrabold text-white tracking-tight">DM Closer</span>
+            <span className="w-3 h-3 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 shadow-lg animate-pulse"></span>
+          </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white text-center mb-3 tracking-tight drop-shadow-xl leading-tight">
             Close more deals in your DMs
             <br />
@@ -136,11 +177,102 @@ export default function Home() {
           <p className="text-base sm:text-lg text-gray-300 text-center mb-6 max-w-xs font-medium">
             Paste your convo and let our AI craft the perfect closing message. Designed for creators, closers, and anyone who wants to win more deals.
           </p>
+          <Button className="h-12 px-8 text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors shadow-lg" onClick={() => setStep(1)}>
+            Try Free
+          </Button>
         </div>
       </section>
 
+      {/* Personal AI Section */}
+      {step === 1 && (
+        <Card className="w-full max-w-md mb-10 bg-white/10 backdrop-blur-2xl border-0 shadow-2xl rounded-3xl animate-fade-in-up z-10">
+          <CardHeader>
+            <CardTitle>
+              <span className="text-2xl font-bold text-white flex items-center gap-2">
+                <span className="inline-block w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center mr-2">
+                  <svg className="w-4 h-4" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M8 12l2 2 4-4" /></svg>
+                </span>
+                Personalize your AI
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form className="flex flex-col gap-5" onSubmit={e => { e.preventDefault(); setStep(2); }}>
+              <Input
+                className="bg-black/40 text-white text-lg rounded-xl"
+                placeholder="Your Instagram handle (e.g. @yourname)"
+                value={insta}
+                onChange={e => setInsta(e.target.value)}
+                required
+              />
+              <Textarea
+                className="bg-black/40 text-white text-lg rounded-xl min-h-[60px]"
+                placeholder="Describe yourself and what you sell/do"
+                value={desc}
+                onChange={e => setDesc(e.target.value)}
+                required
+                rows={3}
+              />
+              <Button type="submit" className="h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors rounded-xl shadow-md">
+                Continue
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Demo Section */}
+      {step === 2 && (
+        <Card className="w-full max-w-md mb-10 bg-white/10 backdrop-blur-2xl border-0 shadow-2xl rounded-3xl animate-fade-in-up z-10">
+          <CardHeader>
+            <CardTitle>
+              <span className="text-2xl font-bold text-white">Try the AI DM Closer</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <Textarea
+                className="bg-black/40 text-white text-lg rounded-xl min-h-[100px]"
+                placeholder="Paste your DM conversation here..."
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                required
+                rows={5}
+                disabled={freeTried}
+              />
+              <div>
+                <div className="mb-2 text-white font-semibold">Tone</div>
+                <PillGroup options={tones} value={tone} onChange={setTone} />
+              </div>
+              <div>
+                <div className="mb-2 text-white font-semibold">Goal</div>
+                <PillGroup options={goals} value={goal} onChange={setGoal} />
+              </div>
+              <Button type="submit" disabled={loading || freeTried} className="h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors rounded-xl shadow-md">
+                {freeTried ? "Free try used" : loading ? (
+                  <span className="flex items-center gap-2">
+                    <span className="animate-spin rounded-full border-2 border-white border-t-transparent w-5 h-5"></span>
+                    Generating...
+                  </span>
+                ) : "Generate Response"}
+              </Button>
+            </form>
+            {output && (
+              <div className="mt-7 bg-white/10 border-0 text-white rounded-xl shadow-md p-4 animate-fade-in">
+                <AlertTitle>
+                  <span className="font-bold">AI Reply:</span>
+                </AlertTitle>
+                <AlertDescription>
+                  <span className="whitespace-pre-line text-lg">{output}</span>
+                </AlertDescription>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
       {/* How It Works Section */}
-      <section className="w-full max-w-3xl mb-12 animate-fade-in-up flex flex-col md:flex-row items-center gap-8">
+      <section className="w-full max-w-3xl mb-12 animate-fade-in-up flex flex-col md:flex-row items-center gap-8 z-10">
         {/* Steps */}
         <div className="flex-1 flex flex-col gap-6">
           {[{
@@ -180,65 +312,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Demo Section */}
-      <Card className="w-full max-w-md mb-10 bg-white/10 backdrop-blur-2xl border-0 shadow-2xl rounded-3xl animate-fade-in-up">
-        <CardHeader>
-          <CardTitle>
-            <span className="text-2xl font-bold text-white">Try the AI DM Closer</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            <Textarea
-              className="bg-black/40 text-white text-lg rounded-xl min-h-[100px]"
-              placeholder="Paste your DM conversation here..."
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              required
-              rows={5}
-              disabled={freeTried}
-            />
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Select value={tone} onValueChange={setTone}>
-                <SelectTrigger className="rounded-lg bg-white/10 text-white border-white/20">
-                  <SelectValue placeholder="Select tone" />
-                </SelectTrigger>
-                <SelectContent>
-                  {tones.map(t => (
-                    <SelectItem key={t.value} value={t.value}>{t.label} Tone</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Select value={goal} onValueChange={setGoal}>
-                <SelectTrigger className="rounded-lg bg-white/10 text-white border-white/20">
-                  <SelectValue placeholder="Select goal" />
-                </SelectTrigger>
-                <SelectContent>
-                  {goals.map(g => (
-                    <SelectItem key={g.value} value={g.value}>{g.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <Button type="submit" disabled={loading || freeTried} className="h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors rounded-xl shadow-md">
-              {freeTried ? "Free try used" : loading ? "Generating..." : "Generate Response"}
-            </Button>
-          </form>
-          {output && (
-            <div className="mt-7 bg-white/10 border-0 text-white rounded-xl shadow-md p-4 animate-fade-in">
-              <AlertTitle>
-                <span className="font-bold">AI Reply:</span>
-              </AlertTitle>
-              <AlertDescription>
-                <span className="whitespace-pre-line text-lg">{output}</span>
-              </AlertDescription>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
       {/* Testimonials */}
-      <section className="w-full max-w-md mb-10 animate-fade-in-up">
+      <section className="w-full max-w-md mb-10 animate-fade-in-up z-10">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">What creators are saying</h2>
         <div className="flex flex-col gap-5">
           {testimonials.map((t, i) => (
@@ -255,7 +330,7 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section className="w-full max-w-md mb-10 animate-fade-in-up">
+      <section className="w-full max-w-md mb-10 animate-fade-in-up z-10">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Pricing</h2>
         <Card className="bg-white/10 border-0 rounded-2xl shadow-xl">
           <CardContent>
@@ -272,7 +347,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="w-full max-w-md mb-20 animate-fade-in-up">
+      <section className="w-full max-w-md mb-20 animate-fade-in-up z-10">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">FAQ</h2>
         <div className="flex flex-col gap-4">
           {faqs.map((f, i) => (
@@ -289,7 +364,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="w-full py-8 flex flex-col items-center text-gray-400 text-sm border-t border-white/10 mt-auto animate-fade-in-up">
+      <footer className="w-full py-8 flex flex-col items-center text-gray-400 text-sm border-t border-white/10 mt-auto animate-fade-in-up z-10">
         <div className="mb-1">Omen Studios &copy; {new Date().getFullYear()} &mdash; DM Closer</div>
         <div>
           <a href="mailto:joshomenstudios@gmail.com" className="underline ml-2 hover:text-blue-400 transition-colors">Support</a>
