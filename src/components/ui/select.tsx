@@ -13,12 +13,12 @@ export function Select({ value, onValueChange, children }: { value: string, onVa
   );
 }
 
-export function SelectTrigger({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+export function SelectTrigger({ children, className }: { children: React.ReactNode, className?: string }) {
+  return <div className={className}>{children}</div>;
 }
 
-export function SelectValue({ placeholder }: { placeholder: string }) {
-  return <option disabled value="">{placeholder}</option>;
+export function SelectValue({ placeholder, className }: { placeholder: string, className?: string }) {
+  return <option disabled value="" className={className}>{placeholder}</option>;
 }
 
 export function SelectContent({ children }: { children: React.ReactNode }) {
