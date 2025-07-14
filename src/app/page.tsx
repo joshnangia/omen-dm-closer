@@ -111,10 +111,10 @@ export default function Home() {
         <button
           key={opt.value}
           type="button"
-          className={`px-4 py-2 rounded-full font-semibold transition-all text-sm shadow-md
+          className={`px-4 py-2 rounded-full font-semibold transition-all text-sm border
             ${value === opt.value
-              ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white scale-105"
-              : "bg-white/10 text-white hover:bg-white/20"}
+              ? "bg-black text-white border-black"
+              : "bg-white text-black border-gray-300 hover:bg-gray-100"}
           `}
           onClick={() => onChange(opt.value)}
         >
@@ -125,35 +125,22 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#18181b] via-[#23272f] to-[#18181b] flex flex-col items-center px-2 sm:px-4 relative overflow-x-hidden">
-      {/* Animated background blobs */}
-      <div className="absolute top-0 left-0 w-full h-[400px] z-0 pointer-events-none">
-        <svg className="w-full h-full" viewBox="0 0 1440 400" fill="none">
-          <ellipse cx="720" cy="200" rx="700" ry="180" fill="url(#bg1)" fillOpacity="0.3" />
-          <defs>
-            <radialGradient id="bg1" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#a5b4fc" />
-              <stop offset="100%" stopColor="#6366f1" />
-            </radialGradient>
-          </defs>
-        </svg>
-      </div>
-
+    <div className="min-h-screen w-full bg-white flex flex-col items-center px-2 sm:px-4 relative overflow-x-hidden">
       {/* Paywall Dialog */}
       <Dialog open={showPaywall} onOpenChange={setShowPaywall}>
         <DialogContent>
-          <div className="max-w-sm mx-auto rounded-2xl shadow-xl bg-white/10 backdrop-blur-xl p-6">
+          <div className="max-w-sm mx-auto rounded-xl shadow-xl bg-white border border-gray-200 p-6">
             <DialogHeader>
               <DialogTitle>
-                <span className="text-2xl font-bold">Unlock Unlimited AI Replies</span>
+                <span className="text-2xl font-bold text-black">Unlock Unlimited AI Replies</span>
               </DialogTitle>
             </DialogHeader>
-            <p className="mb-4 text-gray-300">You’ve used your free reply. Upgrade to Pro for unlimited access!</p>
-            <Button className="w-full mb-2 h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors" onClick={handlePayment}>
+            <p className="mb-4 text-gray-700">You’ve used your free reply. Upgrade to Pro for unlimited access!</p>
+            <Button className="w-full mb-2 h-12 text-lg font-semibold bg-black text-white hover:bg-gray-900 transition-colors" onClick={handlePayment}>
               Pay $9.99/month (Stripe)
             </Button>
             <Button
-              className="w-full h-12 text-lg font-semibold border border-white/30 bg-transparent text-white hover:bg-white/10"
+              className="w-full h-12 text-lg font-semibold border border-gray-300 bg-white text-black hover:bg-gray-100"
               onClick={() => setShowPaywall(false)}
             >
               Cancel
@@ -164,20 +151,20 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="w-full flex flex-col items-center pt-16 pb-8 z-10">
-        <div className="w-full max-w-md mx-auto bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl p-7 flex flex-col items-center animate-fade-in">
+        <div className="w-full max-w-md mx-auto bg-white border border-gray-200 rounded-3xl shadow-2xl p-7 flex flex-col items-center animate-fade-in">
           <div className="mb-4 flex items-center gap-2">
-            <span className="text-2xl font-extrabold text-white tracking-tight">DM Closer</span>
-            <span className="w-3 h-3 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 shadow-lg animate-pulse"></span>
+            <span className="text-2xl font-extrabold text-black tracking-tight">DM Closer</span>
+            <span className="w-3 h-3 rounded-full bg-black"></span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white text-center mb-3 tracking-tight drop-shadow-xl leading-tight">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-black text-center mb-3 tracking-tight leading-tight">
             Close more deals in your DMs
             <br />
-            <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">instantly.</span>
+            <span className="text-gray-500">instantly.</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-300 text-center mb-6 max-w-xs font-medium">
+          <p className="text-base sm:text-lg text-gray-700 text-center mb-6 max-w-xs font-medium">
             Paste your convo and let our AI craft the perfect closing message. Designed for creators, closers, and anyone who wants to win more deals.
           </p>
-          <Button className="h-12 px-8 text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors shadow-lg" onClick={() => setStep(1)}>
+          <Button className="h-12 px-8 text-lg font-bold bg-black text-white hover:bg-gray-900 transition-colors shadow-lg" onClick={() => setStep(1)}>
             Try Free
           </Button>
         </div>
@@ -185,11 +172,11 @@ export default function Home() {
 
       {/* Personal AI Section */}
       {step === 1 && (
-        <Card className="w-full max-w-md mb-10 bg-white/10 backdrop-blur-2xl border-0 shadow-2xl rounded-3xl animate-fade-in-up z-10">
+        <Card className="w-full max-w-md mb-10 bg-white border border-gray-200 shadow-2xl rounded-3xl animate-fade-in-up z-10">
           <CardHeader>
             <CardTitle>
-              <span className="text-2xl font-bold text-white flex items-center gap-2">
-                <span className="inline-block w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center mr-2">
+              <span className="text-2xl font-bold text-black flex items-center gap-2">
+                <span className="inline-block w-6 h-6 rounded-full bg-black flex items-center justify-center mr-2">
                   <svg className="w-4 h-4" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M8 12l2 2 4-4" /></svg>
                 </span>
                 Personalize your AI
@@ -199,21 +186,21 @@ export default function Home() {
           <CardContent>
             <form className="flex flex-col gap-5" onSubmit={e => { e.preventDefault(); setStep(2); }}>
               <Input
-                className="bg-black/40 text-white text-lg rounded-xl"
+                className="bg-white text-black text-lg rounded-xl border border-gray-300"
                 placeholder="Your Instagram handle (e.g. @yourname)"
                 value={insta}
                 onChange={e => setInsta(e.target.value)}
                 required
               />
               <Textarea
-                className="bg-black/40 text-white text-lg rounded-xl min-h-[60px]"
+                className="bg-white text-black text-lg rounded-xl min-h-[60px] border border-gray-300"
                 placeholder="Describe yourself and what you sell/do"
                 value={desc}
                 onChange={e => setDesc(e.target.value)}
                 required
                 rows={3}
               />
-              <Button type="submit" className="h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors rounded-xl shadow-md">
+              <Button type="submit" className="h-12 text-lg font-semibold bg-black text-white hover:bg-gray-900 transition-colors rounded-xl shadow-md">
                 Continue
               </Button>
             </form>
@@ -223,16 +210,16 @@ export default function Home() {
 
       {/* Demo Section */}
       {step === 2 && (
-        <Card className="w-full max-w-md mb-10 bg-white/10 backdrop-blur-2xl border-0 shadow-2xl rounded-3xl animate-fade-in-up z-10">
+        <Card className="w-full max-w-md mb-10 bg-white border border-gray-200 shadow-2xl rounded-3xl animate-fade-in-up z-10">
           <CardHeader>
             <CardTitle>
-              <span className="text-2xl font-bold text-white">Try the AI DM Closer</span>
+              <span className="text-2xl font-bold text-black">Try the AI DM Closer</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <Textarea
-                className="bg-black/40 text-white text-lg rounded-xl min-h-[100px]"
+                className="bg-white text-black text-lg rounded-xl min-h-[100px] border border-gray-300"
                 placeholder="Paste your DM conversation here..."
                 value={input}
                 onChange={e => setInput(e.target.value)}
@@ -241,24 +228,24 @@ export default function Home() {
                 disabled={freeTried}
               />
               <div>
-                <div className="mb-2 text-white font-semibold">Tone</div>
+                <div className="mb-2 text-black font-semibold">Tone</div>
                 <PillGroup options={tones} value={tone} onChange={setTone} />
               </div>
               <div>
-                <div className="mb-2 text-white font-semibold">Goal</div>
+                <div className="mb-2 text-black font-semibold">Goal</div>
                 <PillGroup options={goals} value={goal} onChange={setGoal} />
               </div>
-              <Button type="submit" disabled={loading || freeTried} className="h-12 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors rounded-xl shadow-md">
+              <Button type="submit" disabled={loading || freeTried} className="h-12 text-lg font-semibold bg-black text-white hover:bg-gray-900 transition-colors rounded-xl shadow-md">
                 {freeTried ? "Free try used" : loading ? (
                   <span className="flex items-center gap-2">
-                    <span className="animate-spin rounded-full border-2 border-white border-t-transparent w-5 h-5"></span>
+                    <span className="animate-spin rounded-full border-2 border-black border-t-transparent w-5 h-5"></span>
                     Generating...
                   </span>
                 ) : "Generate Response"}
               </Button>
             </form>
             {output && (
-              <div className="mt-7 bg-white/10 border-0 text-white rounded-xl shadow-md p-4 animate-fade-in">
+              <div className="mt-7 bg-gray-100 border-0 text-black rounded-xl shadow-md p-4 animate-fade-in">
                 <AlertTitle>
                   <span className="font-bold">AI Reply:</span>
                 </AlertTitle>
@@ -285,11 +272,11 @@ export default function Home() {
             title: "Get your perfect reply",
             desc: "AI crafts a closing message that fits you and your prospect.",
           }].map((step, i) => (
-            <div key={i} className={`relative bg-white/10 backdrop-blur-xl rounded-2xl shadow-lg p-6 flex items-start gap-4 transition-all duration-500 ${i === 0 ? 'animate-step-in' : ''}`}> 
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-2xl font-extrabold text-white shadow-lg">{i+1}</div>
+            <div key={i} className={`relative bg-white border border-gray-200 rounded-2xl shadow-lg p-6 flex items-start gap-4 transition-all duration-500 ${i === 0 ? 'animate-step-in' : ''}`}> 
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-black flex items-center justify-center text-2xl font-extrabold text-white shadow-lg">{i+1}</div>
               <div>
-                <div className="text-lg font-bold text-white mb-1">{step.title}</div>
-                <div className="text-gray-300 text-base">{step.desc}</div>
+                <div className="text-lg font-bold text-black mb-1">{step.title}</div>
+                <div className="text-gray-700 text-base">{step.desc}</div>
               </div>
             </div>
           ))}
@@ -297,31 +284,25 @@ export default function Home() {
         {/* Animated Visual (placeholder SVG) */}
         <div className="flex-1 flex justify-center items-center w-full md:w-auto mt-8 md:mt-0">
           <svg className="w-64 h-64 animate-svg-bounce" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#6366f1" stopOpacity="0.6" />
-              </radialGradient>
-            </defs>
-            <ellipse cx="128" cy="128" rx="100" ry="60" fill="url(#grad1)" />
-            <ellipse cx="128" cy="128" rx="60" ry="100" fill="url(#grad1)" opacity="0.5" />
-            <circle cx="128" cy="128" r="40" fill="#fff" fillOpacity="0.15" />
-            <rect x="88" y="88" width="80" height="40" rx="12" fill="#fff" fillOpacity="0.2" />
-            <rect x="108" y="140" width="40" height="20" rx="8" fill="#fff" fillOpacity="0.2" />
+            <ellipse cx="128" cy="128" rx="100" ry="60" fill="#e5e7eb" />
+            <ellipse cx="128" cy="128" rx="60" ry="100" fill="#f3f4f6" opacity="0.5" />
+            <circle cx="128" cy="128" r="40" fill="#d1d5db" fillOpacity="0.15" />
+            <rect x="88" y="88" width="80" height="40" rx="12" fill="#f3f4f6" fillOpacity="0.2" />
+            <rect x="108" y="140" width="40" height="20" rx="8" fill="#f3f4f6" fillOpacity="0.2" />
           </svg>
         </div>
       </section>
 
       {/* Testimonials */}
       <section className="w-full max-w-md mb-10 animate-fade-in-up z-10">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">What creators are saying</h2>
+        <h2 className="text-2xl font-bold text-black mb-6 text-center">What creators are saying</h2>
         <div className="flex flex-col gap-5">
           {testimonials.map((t, i) => (
-            <Card key={i} className="bg-white/10 border-0 rounded-2xl shadow-lg">
+            <Card key={i} className="bg-white border border-gray-200 rounded-2xl shadow-lg">
               <CardContent>
                 <div className="p-5 flex flex-col items-start gap-3">
-                  <p className="text-white text-base font-medium">"{t.text}"</p>
-                  <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-base font-semibold shadow">{t.name}</Badge>
+                  <p className="text-black text-base font-medium">"{t.text}"</p>
+                  <Badge className="bg-black text-white px-4 py-2 text-base font-semibold shadow">{t.name}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -331,16 +312,16 @@ export default function Home() {
 
       {/* Pricing */}
       <section className="w-full max-w-md mb-10 animate-fade-in-up z-10">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">Pricing</h2>
-        <Card className="bg-white/10 border-0 rounded-2xl shadow-xl">
+        <h2 className="text-2xl font-bold text-black mb-6 text-center">Pricing</h2>
+        <Card className="bg-white border border-gray-200 rounded-2xl shadow-xl">
           <CardContent>
             <div className="p-8 flex flex-col items-center gap-3">
-              <div className="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-1">$9.99</div>
-              <div className="text-white text-base mb-1">per month, unlimited AI replies</div>
-              <Button onClick={() => setShowPaywall(true)} className="h-12 px-8 text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors rounded-xl shadow-md">
+              <div className="text-4xl font-extrabold text-black mb-1">$9.99</div>
+              <div className="text-black text-base mb-1">per month, unlimited AI replies</div>
+              <Button onClick={() => setShowPaywall(true)} className="h-12 px-8 text-lg font-bold bg-black text-white hover:bg-gray-900 transition-colors rounded-xl shadow-md">
                 Upgrade Now
               </Button>
-              <div className="text-gray-300 text-xs mt-1">7-day money-back guarantee</div>
+              <div className="text-gray-700 text-xs mt-1">7-day money-back guarantee</div>
             </div>
           </CardContent>
         </Card>
@@ -348,14 +329,14 @@ export default function Home() {
 
       {/* FAQ */}
       <section className="w-full max-w-md mb-20 animate-fade-in-up z-10">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">FAQ</h2>
+        <h2 className="text-2xl font-bold text-black mb-6 text-center">FAQ</h2>
         <div className="flex flex-col gap-4">
           {faqs.map((f, i) => (
-            <Card key={i} className="bg-white/10 border-0 rounded-2xl shadow-md">
+            <Card key={i} className="bg-white border border-gray-200 rounded-2xl shadow-md">
               <CardContent>
                 <div className="p-5 flex flex-col gap-1">
-                  <div className="font-semibold text-white text-base">{f.q}</div>
-                  <div className="text-gray-300 text-sm">{f.a}</div>
+                  <div className="font-semibold text-black text-base">{f.q}</div>
+                  <div className="text-gray-700 text-sm">{f.a}</div>
                 </div>
               </CardContent>
             </Card>
@@ -364,10 +345,10 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="w-full py-8 flex flex-col items-center text-gray-400 text-sm border-t border-white/10 mt-auto animate-fade-in-up z-10">
+      <footer className="w-full py-8 flex flex-col items-center text-gray-500 text-sm border-t border-gray-200 mt-auto animate-fade-in-up z-10">
         <div className="mb-1">Omen Studios &copy; {new Date().getFullYear()} &mdash; DM Closer</div>
         <div>
-          <a href="mailto:joshomenstudios@gmail.com" className="underline ml-2 hover:text-blue-400 transition-colors">Support</a>
+          <a href="mailto:joshomenstudios@gmail.com" className="underline ml-2 hover:text-black transition-colors">Support</a>
         </div>
       </footer>
 
