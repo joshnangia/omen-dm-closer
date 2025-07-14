@@ -160,10 +160,10 @@ export default function Home() {
           Paste your convo and let our AI craft the perfect closing message. Designed for creators, closers, and anyone who wants to win more deals.
         </p>
         <div className="flex flex-col md:flex-row gap-4">
-          <Button size="lg" className="h-14 px-8 text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors shadow-lg">
+          <Button className="h-14 px-8 text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-colors shadow-lg">
             Try Free
           </Button>
-          <Button size="lg" className="h-14 px-8 text-lg font-bold border border-white/30 bg-transparent text-white hover:bg-white/10 transition-colors">
+          <Button className="h-14 px-8 text-lg font-bold border border-white/30 bg-transparent text-white hover:bg-white/10 transition-colors">
             See Pricing
           </Button>
         </div>
