@@ -139,6 +139,47 @@ export default function Home() {
         </div>
       </section>
 
+      {/* How It Works Section */}
+      <section className="w-full max-w-3xl mb-12 animate-fade-in-up flex flex-col md:flex-row items-center gap-8">
+        {/* Steps */}
+        <div className="flex-1 flex flex-col gap-6">
+          {[{
+            title: "Personalize your AI",
+            desc: "Tell us your Instagram and what you do. Your AI adapts to you.",
+          }, {
+            title: "Paste your DM & pick your goal",
+            desc: "Drop in your convo, choose your tone and goal.",
+          }, {
+            title: "Get your perfect reply",
+            desc: "AI crafts a closing message that fits you and your prospect.",
+          }].map((step, i) => (
+            <div key={i} className={`relative bg-white/10 backdrop-blur-xl rounded-2xl shadow-lg p-6 flex items-start gap-4 transition-all duration-500 ${i === 0 ? 'animate-step-in' : ''}`}> 
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-2xl font-extrabold text-white shadow-lg">{i+1}</div>
+              <div>
+                <div className="text-lg font-bold text-white mb-1">{step.title}</div>
+                <div className="text-gray-300 text-base">{step.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Animated Visual (placeholder SVG) */}
+        <div className="flex-1 flex justify-center items-center w-full md:w-auto mt-8 md:mt-0">
+          <svg className="w-64 h-64 animate-svg-bounce" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#6366f1" stopOpacity="0.6" />
+              </radialGradient>
+            </defs>
+            <ellipse cx="128" cy="128" rx="100" ry="60" fill="url(#grad1)" />
+            <ellipse cx="128" cy="128" rx="60" ry="100" fill="url(#grad1)" opacity="0.5" />
+            <circle cx="128" cy="128" r="40" fill="#fff" fillOpacity="0.15" />
+            <rect x="88" y="88" width="80" height="40" rx="12" fill="#fff" fillOpacity="0.2" />
+            <rect x="108" y="140" width="40" height="20" rx="8" fill="#fff" fillOpacity="0.2" />
+          </svg>
+        </div>
+      </section>
+
       {/* Demo Section */}
       <Card className="w-full max-w-md mb-10 bg-white/10 backdrop-blur-2xl border-0 shadow-2xl rounded-3xl animate-fade-in-up">
         <CardHeader>
@@ -270,6 +311,20 @@ export default function Home() {
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-svg-bounce {
+          animation: svgBounce 2.5s infinite alternate cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes svgBounce {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-16px) scale(1.04); }
+        }
+        .animate-step-in {
+          animation: stepIn 1.2s cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes stepIn {
+          from { opacity: 0; transform: translateX(-40px); }
+          to { opacity: 1; transform: translateX(0); }
         }
       `}</style>
     </div>
